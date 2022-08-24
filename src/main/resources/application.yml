@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    properties[hibernate.format_sql]: true
