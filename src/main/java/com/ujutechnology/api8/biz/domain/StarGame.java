@@ -1,4 +1,4 @@
-package biz.domain;
+package com.ujutechnology.api8.biz.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,9 @@ public class StarGame {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "LIVE")
+    private boolean live;
 
 }
 

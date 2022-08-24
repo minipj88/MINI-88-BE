@@ -1,4 +1,4 @@
-package biz.domain;
+package com.ujutechnology.api8.biz.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +19,8 @@ public class Product {
 
     @Column(name = "PRODUCTRATE", nullable = false)
     private double productRate;
+
+    @Column(name = "PRODUCTTAG", nullable = false)
+    private String productTag;
 
 }
