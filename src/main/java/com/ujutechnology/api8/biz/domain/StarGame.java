@@ -1,4 +1,4 @@
-package biz.domain;
+package com.ujutechnology.api8.biz.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
