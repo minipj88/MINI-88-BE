@@ -1,4 +1,4 @@
-package com.ujutechnology.api8.biz.persistence;
+package com.ujutechnology.api8.biz.repository;
 
 import com.ujutechnology.api8.biz.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

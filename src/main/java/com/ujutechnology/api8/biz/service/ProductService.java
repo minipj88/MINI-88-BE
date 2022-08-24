@@ -1,7 +1,7 @@
 package com.ujutechnology.api8.biz.service;
 
 import com.ujutechnology.api8.biz.domain.Product;
-import com.ujutechnology.api8.biz.persistence.ProductRepository;
+import com.ujutechnology.api8.biz.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
