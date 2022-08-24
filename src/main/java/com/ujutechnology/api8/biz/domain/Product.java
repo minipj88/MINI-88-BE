@@ -19,8 +19,7 @@ public class Product {
 
     @Column(name = "PRODUCTRATE", nullable = false)
     private double productRate;
-
+    
     @Column(name = "PRODUCTTAG", nullable = false)
     private String productTag;
-
 }
