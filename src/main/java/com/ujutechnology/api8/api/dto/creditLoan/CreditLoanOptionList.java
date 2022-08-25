@@ -1,4 +1,4 @@
-package com.ujutechnology.api8.biz.dto.creditLoan;
+package com.ujutechnology.api8.api.dto.creditLoan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

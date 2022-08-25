@@ -1,4 +1,4 @@
-package com.ujutechnology.api8.biz.dto.mortgageLoan;
+package com.ujutechnology.api8.api.dto.rentHouseLoan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MortgageBaseList {
+public class RentHouseBaseList {
     private String dcls_month; // 공시 제출월
     private String fin_co_no; // 금융회사 코드
     private String kor_co_nm; // 금융회사명

@@ -1,6 +1,7 @@
-package com.ujutechnology.api8.biz.dto.deposit;
+package com.ujutechnology.api8.api.dto.deposit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ujutechnology.api8.biz.domain.Product;
 import lombok.*;
 
 @Getter
@@ -25,4 +26,11 @@ public class DepositBaseList {
     private String dcls_strt_day; // 공시 시작일
     private String dcls_end_day; // 공시 종료일
     private String fin_co_subm_day; // 금융회사 제출일
+
+    public Product ConvertToEntity() {
+        return Product.builder()
+                .ProductName(fin_prdt_nm)
+                .ProductRate(mtrt_int)
+                .build();
+    }
 }
