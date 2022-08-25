@@ -1,5 +1,6 @@
 package com.ujutechnology.api8.biz.service;
 
+import com.ujutechnology.api8.api.controller.dto.LoginDto;
 import com.ujutechnology.api8.api.controller.dto.RegistMemberDto;
 import com.ujutechnology.api8.biz.domain.Member;
 import com.ujutechnology.api8.biz.repository.MemberRepository;
@@ -29,9 +30,18 @@ public class MemberService {
                     .profilePhoto(registMemberDto.getProfilePhoto())
                     .age(registMemberDto.getAge())
                     .job(registMemberDto.getJob())
-                    .credit(500)
                     .build();
             memberRepository.save(member);
         }
+    }
+
+    public boolean login(LoginDto loginDto) {
+        Optional<Member> memberOpt = memberRepository.findByEmail(loginDto.getEmail());
+        if(memberOpt.isPresent()){
+            if( memberOpt.get().getPassword().equals(loginDto.getPassword()) ){
+                return true;
+            }
+        }
+        return false;
     }
 }
