@@ -1,9 +1,12 @@
 package com.ujutechnology.api8.api.controller;
 
-import com.ujutechnology.api8.biz.dto.creditLoan.CreditLoanResult;
-import com.ujutechnology.api8.biz.dto.deposit.DepositResult;
-import com.ujutechnology.api8.biz.dto.mortgageLoan.MortgageResult;
-import com.ujutechnology.api8.biz.dto.rentHouseLoan.RentHouseResult;
+import com.ujutechnology.api8.api.dto.creditLoan.CreditLoanResult;
+import com.ujutechnology.api8.api.dto.deposit.DepositBaseList;
+import com.ujutechnology.api8.api.dto.deposit.DepositOuterWrapperResult;
+import com.ujutechnology.api8.api.dto.deposit.DepositResult;
+import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageResult;
+import com.ujutechnology.api8.api.dto.rentHouseLoan.RentHouseResult;
+import com.ujutechnology.api8.biz.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,20 +22,22 @@ import java.net.URI;
 @RestController
 public class FinancialProductSearchController {
     private final WebClient.Builder webClient;
+    private final ProductService productService;
 
     @GetMapping("/depositProduct")
     public void DepositProductsApi() {
         DepositResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json")
                 .build()
                 .get()
-                .uri(uri -> {
-                    URI build = uri.queryParams(temp()).build();
-                    log.info("URI_TOSTRING = {}",build);
-                    return build;
-                })
+                .uri(uri -> uri.queryParams(temp()).build())
                 .retrieve()
                 .bodyToMono(DepositResult.class)
                 .block();
+        DepositOuterWrapperResult wrapperResult = result.getResult();
+        for(DepositBaseList baseList : wrapperResult.getBaseList()){
+            log.info("FINCONO={}, KORCONM={}, JOINMEMBER={}",baseList.getFin_co_no(),baseList.getKor_co_nm(),baseList.getJoin_member());
+
+        }
     }
 
     @GetMapping("/MortgageLoanProduct")
@@ -82,8 +87,8 @@ public class FinancialProductSearchController {
 
     private MultiValueMap<String, String> temp(){
         LinkedMultiValueMap<String, String> temp = new LinkedMultiValueMap<>();
-        temp.add("auth","");
-        temp.add("topFinGrpNo","020000");
+        temp.add("auth",""); // api키
+        temp.add("topFinGrpNo","020000"); // 은행 : 020000
         temp.add("pageNo","1");
         return temp;
     }
