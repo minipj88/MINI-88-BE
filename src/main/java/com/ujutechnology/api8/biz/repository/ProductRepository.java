@@ -4,9 +4,11 @@ import com.ujutechnology.api8.biz.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Product findByProductRate(double productRate);
-    Product findByProductTag(String productTag);
+    List<Product> findByProductRate(double productRate);
+    List<Product> findByProductTag(String productTag);
 }

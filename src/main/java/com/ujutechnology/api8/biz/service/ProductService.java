@@ -5,17 +5,19 @@ import com.ujutechnology.api8.biz.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public Product getRates(double rate) {
+    public List<Product> getRates(double rate) {
         return productRepository.findByProductRate(rate);
     }
 
-    public Product getTags(String tag) {
+    public List<Product> getTags(String tag) {
         return productRepository.findByProductTag(tag);
     }
 }
