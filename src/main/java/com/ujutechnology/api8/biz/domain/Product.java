@@ -11,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Product {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "PRODUCTNAME", nullable = false)
@@ -20,4 +21,6 @@ public class Product {
     @Column(name = "PRODUCTRATE", nullable = false)
     private double productRate;
 
+    @Column(name = "PRODUCTTAG", nullable = false)
+    private String productTag;
 }
