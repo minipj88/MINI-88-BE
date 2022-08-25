@@ -1,5 +1,6 @@
 package com.ujutechnology.api8.api.controller;
 
+import com.ujutechnology.api8.api.controller.dto.LoginDto;
 import com.ujutechnology.api8.api.controller.dto.RegistMemberDto;
 import com.ujutechnology.api8.api.controller.dto.ResultDto;
 import com.ujutechnology.api8.biz.service.MemberService;
@@ -17,9 +18,10 @@ import static java.util.stream.IntStream.builder;
  * @author kei
  * @since 2022-08-24
  */
-@RestController("/api")
+@RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api")
 public class RestMemberController {
     private final MemberService memberService;
 
@@ -33,7 +35,18 @@ public class RestMemberController {
         log.debug("member resist >>>"+registMemberDto.toString());
         memberService.regist(registMemberDto);
         ResultDto<String> resultDto = new ResultDto<>();
-        resultDto.setMessage("회원등록 성공 하였습니다.");
+        resultDto.setResult(true);
         return resultDto;
     }
+
+    @PostMapping("/login")
+    public ResultDto<String> login(LoginDto loginDto){
+        boolean ret = memberService.login(loginDto);
+        ResultDto<String> resultDto = new ResultDto<>();
+        if(ret){
+            resultDto.setResult(true);
+        }
+        return resultDto;
+    }
+
 }
