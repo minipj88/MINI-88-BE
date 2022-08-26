@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")
-public class RestMemberController {
+public class MemberController {
     private final MemberService memberService;
 
     @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value = { "", "/" })
@@ -29,7 +29,6 @@ public class RestMemberController {
 
     @PostMapping("/regist")
     public ResultDto<String> resist(RegistMemberDto registMemberDto){
-        log.debug("member resist >>>"+registMemberDto.toString());
         memberService.regist(registMemberDto);
         ResultDto<String> resultDto = new ResultDto<>();
         resultDto.setResult(true);
