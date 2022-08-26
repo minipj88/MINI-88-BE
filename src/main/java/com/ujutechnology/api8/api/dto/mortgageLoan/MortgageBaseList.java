@@ -1,6 +1,7 @@
 package com.ujutechnology.api8.api.dto.mortgageLoan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ujutechnology.api8.biz.domain.Product;
 import lombok.*;
 
 @Getter
@@ -20,4 +21,10 @@ public class MortgageBaseList {
     private String erly_rpay_fee; // 중도 상환 수수료
     private String dly_rate; // 연체 이자율
     private String loan_lmt; // 대출한도
+
+    public Product ConvertToEntity() {
+        return Product.builder()
+                .Name(this.fin_prdt_nm)
+                .build();
+    }
 }

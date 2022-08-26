@@ -13,6 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+
 public class DepositBaseList {
     private String dcls_month; // 공시 제출월
     private String fin_co_no; // 금융회사 코드

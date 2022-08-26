@@ -4,6 +4,8 @@ import com.ujutechnology.api8.api.dto.creditLoan.CreditLoanResult;
 import com.ujutechnology.api8.api.dto.deposit.DepositBaseList;
 import com.ujutechnology.api8.api.dto.deposit.DepositOuterWrapperResult;
 import com.ujutechnology.api8.api.dto.deposit.DepositResult;
+import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageBaseList;
+import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageOuterWrapperResult;
 import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageResult;
 import com.ujutechnology.api8.api.dto.rentHouseLoan.RentHouseResult;
 import com.ujutechnology.api8.biz.domain.Product;
@@ -37,17 +39,10 @@ public class FinancialProductSearchController {
         DepositOuterWrapperResult wrapperResult = result.getResult();
         for(DepositBaseList baseList : wrapperResult.getBaseList()){
  //           log.info("FINCONO={}, PRDNM={}, KORCONM={}, JOINMEMBER={}",baseList.getFin_co_no(),baseList.getFin_prdt_nm(),baseList.getKor_co_nm(),baseList.getJoin_member());
-            Product product1= new Product();
-            product1.setProductName(baseList.getFin_prdt_nm());
-            product1.setProductRate(baseList.getMtrt_int());
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@" + product1.toString());
             Product product = baseList.ConvertToEntity();
 //            log.info("ProductId = {}, ProductName = {} , ProductRate = {}",product.getId(), product.getProductName(),product.getProductRate());
             productService.save(product);
-
-
         }
-//        productService.save(result.getResult().getBaseList());
     }
 
     @GetMapping("/MortgageLoanProduct")
@@ -63,6 +58,13 @@ public class FinancialProductSearchController {
                 .retrieve()
                 .bodyToMono(MortgageResult.class)
                 .block();
+        MortgageOuterWrapperResult wrapperResult = result.getResult();
+        for(MortgageBaseList baseList : wrapperResult.getBaseList()){
+            //           log.info("FINCONO={}, PRDNM={}, KORCONM={}, JOINMEMBER={}",baseList.getFin_co_no(),baseList.getFin_prdt_nm(),baseList.getKor_co_nm(),baseList.getJoin_member());
+            Product product = baseList.ConvertToEntity();
+//            log.info("ProductId = {}, ProductName = {} , ProductRate = {}",product.getId(), product.getProductName(),product.getProductRate());
+            productService.save(product);
+        }
     }
 
     @GetMapping("/RentHouseLoanProduct")

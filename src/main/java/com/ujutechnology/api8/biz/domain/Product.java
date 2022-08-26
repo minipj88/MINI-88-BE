@@ -8,11 +8,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "PRODUCT")
-@Data
 @NoArgsConstructor
+@Data
 public class Product {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue/*(strategy = GenerationType.IDENTITY)*/
     private Long id;
 
     @Column(name = "PRODUCTNAME", nullable = false)

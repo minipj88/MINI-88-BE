@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     @Transactional
     public void save(Product product){
