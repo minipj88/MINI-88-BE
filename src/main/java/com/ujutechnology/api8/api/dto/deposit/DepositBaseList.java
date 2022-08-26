@@ -1,6 +1,8 @@
 package com.ujutechnology.api8.api.dto.deposit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.ujutechnology.api8.biz.domain.Product;
 import lombok.*;
 
@@ -10,6 +12,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+
 public class DepositBaseList {
     private String dcls_month; // 공시 제출월
     private String fin_co_no; // 금융회사 코드
@@ -29,8 +33,8 @@ public class DepositBaseList {
 
     public Product ConvertToEntity() {
         return Product.builder()
-                .ProductName(fin_prdt_nm)
-                .ProductRate(mtrt_int)
+                .Name(this.fin_prdt_nm)
+                .Rate(this.mtrt_int)
                 .build();
     }
 }
