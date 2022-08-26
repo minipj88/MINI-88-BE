@@ -4,8 +4,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +20,9 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
+@DynamicInsert
+@DynamicUpdate
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,25 +34,25 @@ public class Member {
     String token;
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    LocalDateTime createTime;
+    LocalDateTime createdDate;
     @LastModifiedDate
     @Column(nullable = false)
-    LocalDateTime updateTime;
+    LocalDateTime modifiedDate;
     String nickName;
     String profilePhoto;
     String job;
-    String age;
+    int age;
     int credit;
     int point;
 
     @Builder
-    public Member(Long id, String email, String password, String token, LocalDateTime createTime, LocalDateTime updateTime, String nickName, String profilePhoto, String job, String age, int credit, int point) {
+    public Member(Long id, String email, String password, String token, LocalDateTime createdDate, LocalDateTime modifiedDate, String nickName, String profilePhoto, String job, int age, int credit, int point) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.token = token;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
         this.nickName = nickName;
         this.profilePhoto = profilePhoto;
         this.job = job;
