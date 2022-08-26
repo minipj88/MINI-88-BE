@@ -6,6 +6,7 @@ import com.ujutechnology.api8.api.dto.deposit.DepositOuterWrapperResult;
 import com.ujutechnology.api8.api.dto.deposit.DepositResult;
 import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageResult;
 import com.ujutechnology.api8.api.dto.rentHouseLoan.RentHouseResult;
+import com.ujutechnology.api8.biz.domain.Product;
 import com.ujutechnology.api8.biz.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,18 @@ public class FinancialProductSearchController {
                 .block();
         DepositOuterWrapperResult wrapperResult = result.getResult();
         for(DepositBaseList baseList : wrapperResult.getBaseList()){
-            log.info("FINCONO={}, KORCONM={}, JOINMEMBER={}",baseList.getFin_co_no(),baseList.getKor_co_nm(),baseList.getJoin_member());
+ //           log.info("FINCONO={}, PRDNM={}, KORCONM={}, JOINMEMBER={}",baseList.getFin_co_no(),baseList.getFin_prdt_nm(),baseList.getKor_co_nm(),baseList.getJoin_member());
+            Product product1= new Product();
+            product1.setProductName(baseList.getFin_prdt_nm());
+            product1.setProductRate(baseList.getMtrt_int());
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@" + product1.toString());
+            Product product = baseList.ConvertToEntity();
+//            log.info("ProductId = {}, ProductName = {} , ProductRate = {}",product.getId(), product.getProductName(),product.getProductRate());
+            productService.save(product);
+
 
         }
+//        productService.save(result.getResult().getBaseList());
     }
 
     @GetMapping("/MortgageLoanProduct")
@@ -87,7 +97,7 @@ public class FinancialProductSearchController {
 
     private MultiValueMap<String, String> temp(){
         LinkedMultiValueMap<String, String> temp = new LinkedMultiValueMap<>();
-        temp.add("auth",""); // api키
+        temp.add("auth","c407c9271bf8cd469648c7e40a6de96e"); // api키
         temp.add("topFinGrpNo","020000"); // 은행 : 020000
         temp.add("pageNo","1");
         return temp;

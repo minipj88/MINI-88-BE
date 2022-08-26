@@ -20,9 +20,4 @@ public class DepositOuterWrapperResult {
 
         private List<DepositBaseList> baseList;
 
-/*        private String intr_rate_type; // 저축 금리 유형
-        private String intr_rate_type_nm; // 저축 금리 유형명
-        private String save_trm; // 저축 기간
-        private String intr_rate; // 저축 금리
-        private String intr_rate2; // 최고 우대금리{*/
 }
