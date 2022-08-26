@@ -1,7 +1,7 @@
 package com.ujutechnology.api8.biz.service;
 
-import com.ujutechnology.api8.api.controller.dto.LoginDto;
-import com.ujutechnology.api8.api.controller.dto.RegistMemberDto;
+import com.ujutechnology.api8.api.dto.LoginDto;
+import com.ujutechnology.api8.api.dto.RegistMemberDto;
 import com.ujutechnology.api8.biz.domain.Member;
 import com.ujutechnology.api8.biz.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
