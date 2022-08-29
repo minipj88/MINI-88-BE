@@ -12,6 +12,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author kei
@@ -44,6 +46,9 @@ public class Member {
     int age;
     int credit;
     int point;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Product> productList = new ArrayList<>();
 
     @Builder
     public Member(Long id, String email, String password, String token, LocalDateTime createdDate, LocalDateTime modifiedDate, String nickName, String profilePhoto, String job, int age, int credit, int point) {

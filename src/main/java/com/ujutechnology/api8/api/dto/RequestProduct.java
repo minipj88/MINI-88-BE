@@ -3,7 +3,8 @@ package com.ujutechnology.api8.api.dto;
 import lombok.Data;
 
 @Data
-public class RequestProduct {
+public class
+RequestProduct {
 
     private String productName;
     private double productRate;
