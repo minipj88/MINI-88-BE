@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,Long> {
-    int deleteByMemberIdAndProductId(Long memberId, Long productId);
+    int deleteByMemberEmailAndProductId(String memberEmail, Long productId);
 }
