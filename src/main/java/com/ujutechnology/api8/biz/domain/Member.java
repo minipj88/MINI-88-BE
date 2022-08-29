@@ -29,26 +29,29 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, unique = true)
     String email;
+
     @Column(nullable = false)
     String password;
+
     String token;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     LocalDateTime createdDate;
+
     @LastModifiedDate
     @Column(nullable = false)
     LocalDateTime modifiedDate;
+
     String nickName;
     String profilePhoto;
     String job;
     int age;
     int credit;
     int point;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Product> productList = new ArrayList<>();
 
     @Builder
     public Member(Long id, String email, String password, String token, LocalDateTime createdDate, LocalDateTime modifiedDate, String nickName, String profilePhoto, String job, int age, int credit, int point) {
