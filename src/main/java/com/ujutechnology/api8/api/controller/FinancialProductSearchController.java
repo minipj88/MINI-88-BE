@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,6 +23,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api")
 public class FinancialProductSearchController {
     private final WebClient.Builder webClient;
     private final ProductService productService;
@@ -108,6 +110,8 @@ public class FinancialProductSearchController {
             @RequestParam(required = false) String job,
             @RequestParam(required = false) Integer age
     ) {
+        age = age/10;
+        age = age*10;
         Specification<Product> spec = (root, query, criteriaBuilder) -> null;
 
         if (age != null)
@@ -130,7 +134,9 @@ public class FinancialProductSearchController {
         if (financialCompanyName != null)
             spec = spec.and(TodoSpecification.withProductName(productName));
 
-        return productRepository.findAll(spec);
+        List<Product> productList = productRepository.findAll(spec);
+        return productList;
+//         return productRepository.findAll(spec);
     }
 
     private MultiValueMap<String, String> temp(){
