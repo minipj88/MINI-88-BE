@@ -1,20 +1,21 @@
 package com.ujutechnology.api8.api.controller;
 
-import com.ujutechnology.api8.api.dto.*;
+import com.ujutechnology.api8.api.dto.ProductBaseList;
+import com.ujutechnology.api8.api.dto.ProductOptionList;
+import com.ujutechnology.api8.api.dto.ProductResult;
 import com.ujutechnology.api8.biz.domain.Product;
 import com.ujutechnology.api8.biz.domain.TodoSpecification;
 import com.ujutechnology.api8.biz.repository.ProductRepository;
 import com.ujutechnology.api8.biz.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.net.URI;
@@ -29,8 +30,16 @@ public class FinancialProductSearchController {
     private final ProductService productService;
     private final ProductRepository productRepository;
 
+    @EventListener(ApplicationReadyEvent.class)
+    public void createProduct() {
+        depositProductsApi();
+        mortgageLoanProductsApi();
+        rentHouseLoanProductsApi();
+        creditLoanProductsApi();
+    }
+
     @GetMapping("/depositProduct")
-    public void DepositProductsApi() {
+    public void depositProductsApi() {
         ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json")
                 .build()
                 .get()
@@ -66,7 +75,7 @@ public class FinancialProductSearchController {
     }
 
     @GetMapping("/rentHouseLoanProduct")
-    public void RentHouseLoanProductsApi() {
+    public void rentHouseLoanProductsApi() {
         ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json")
                 .build()
                 .get()
@@ -86,7 +95,7 @@ public class FinancialProductSearchController {
     }
 
     @GetMapping("/creditLoanProduct")
-    public void CreditLoanProductsApi() {
+    public void creditLoanProductsApi() {
             ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json")
                     .build()
                     .get()
@@ -139,6 +148,12 @@ public class FinancialProductSearchController {
 //         return productRepository.findAll(spec);
     }
 
+    @GetMapping("/details/{id}")
+    public Product getProductDetails(@PathVariable long id){
+        Product product = productRepository.findById(id).get();
+        return product;
+    }
+
     private MultiValueMap<String, String> temp(){
         LinkedMultiValueMap<String, String> temp = new LinkedMultiValueMap<>();
         temp.add("auth","c407c9271bf8cd469648c7e40a6de96e"); // api키
@@ -147,15 +162,13 @@ public class FinancialProductSearchController {
         return temp;
     }
 
-    public Product convertToEntity(ProductBaseList baseList, ProductOptionList optionList){ // Rate와 Age 추가예정
+    private Product convertToEntity(ProductBaseList baseList, ProductOptionList optionList){ // Rate와 Age 추가예정
         return Product.builder()
                 .financialCompanyName(baseList.getKorCoNm())
-                .financialCompanyNumber(baseList.getKorCoNm())
                 .productName(baseList.getFinPrdtNm())
                 .productNumber(baseList.getFinPrdtCd())
                 .cbName(baseList.getCbName())
                 .joinWay(baseList.getJoinWay())
-                .creditProductTypeName(optionList.getCrdtPrdtTypeNm())
                 .age(20)
                 .rate(5.2)
                 .job("무직")
