@@ -1,24 +1,23 @@
 package com.ujutechnology.api8.api.controller;
 
-import com.ujutechnology.api8.api.dto.creditLoan.CreditLoanResult;
-import com.ujutechnology.api8.api.dto.deposit.DepositBaseList;
-import com.ujutechnology.api8.api.dto.deposit.DepositOuterWrapperResult;
-import com.ujutechnology.api8.api.dto.deposit.DepositResult;
-import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageBaseList;
-import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageOuterWrapperResult;
-import com.ujutechnology.api8.api.dto.mortgageLoan.MortgageResult;
-import com.ujutechnology.api8.api.dto.rentHouseLoan.RentHouseResult;
+import com.ujutechnology.api8.api.dto.*;
 import com.ujutechnology.api8.biz.domain.Product;
+import com.ujutechnology.api8.biz.domain.TodoSpecification;
+import com.ujutechnology.api8.biz.repository.ProductRepository;
 import com.ujutechnology.api8.biz.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.net.URI;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,28 +25,27 @@ import java.net.URI;
 public class FinancialProductSearchController {
     private final WebClient.Builder webClient;
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
     @GetMapping("/depositProduct")
     public void DepositProductsApi() {
-        DepositResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json")
+        ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json")
                 .build()
                 .get()
                 .uri(uri -> uri.queryParams(temp()).build())
                 .retrieve()
-                .bodyToMono(DepositResult.class)
+                .bodyToMono(ProductResult.class)
                 .block();
-        DepositOuterWrapperResult wrapperResult = result.getResult();
-        for(DepositBaseList baseList : wrapperResult.getBaseList()){
- //           log.info("FINCONO={}, PRDNM={}, KORCONM={}, JOINMEMBER={}",baseList.getFin_co_no(),baseList.getFin_prdt_nm(),baseList.getKor_co_nm(),baseList.getJoin_member());
-            Product product = baseList.ConvertToEntity();
-//            log.info("ProductId = {}, ProductName = {} , ProductRate = {}",product.getId(), product.getProductName(),product.getProductRate());
+        assert result != null;
+        for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
             productService.save(product);
         }
     }
 
-    @GetMapping("/MortgageLoanProduct")
+    @GetMapping("/mortgageLoanProduct")
     public void mortgageLoanProductsApi() {
-        MortgageResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/mortgageLoanProductsSearch.json")
+        ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/mortgageLoanProductsSearch.json")
                 .build()
                 .get()
                 .uri(uri -> {
@@ -56,45 +54,83 @@ public class FinancialProductSearchController {
                     return build;
                 })
                 .retrieve()
-                .bodyToMono(MortgageResult.class)
+                .bodyToMono(ProductResult.class)
                 .block();
-        MortgageOuterWrapperResult wrapperResult = result.getResult();
-        for(MortgageBaseList baseList : wrapperResult.getBaseList()){
-            //           log.info("FINCONO={}, PRDNM={}, KORCONM={}, JOINMEMBER={}",baseList.getFin_co_no(),baseList.getFin_prdt_nm(),baseList.getKor_co_nm(),baseList.getJoin_member());
-            Product product = baseList.ConvertToEntity();
-//            log.info("ProductId = {}, ProductName = {} , ProductRate = {}",product.getId(), product.getProductName(),product.getProductRate());
+        assert result != null;
+        for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
             productService.save(product);
         }
     }
 
-    @GetMapping("/RentHouseLoanProduct")
+    @GetMapping("/rentHouseLoanProduct")
     public void RentHouseLoanProductsApi() {
-        RentHouseResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json")
+        ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json")
                 .build()
                 .get()
                 .uri(uri -> {
                     URI build = uri.queryParams(temp()).build();
-                    log.info("URI_TOSTRING = {}",build);
+                    log.info("URI_TOSTRING = {}", build);
                     return build;
                 })
                 .retrieve()
-                .bodyToMono(RentHouseResult.class)
+                .bodyToMono(ProductResult.class)
                 .block();
+        assert result != null;
+        for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
+            productService.save(product);
+        }
     }
 
-    @GetMapping("/CreditLoanProduct")
+    @GetMapping("/creditLoanProduct")
     public void CreditLoanProductsApi() {
-        CreditLoanResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json")
-                .build()
-                .get()
-                .uri(uri -> {
-                    URI build = uri.queryParams(temp()).build();
-                    log.info("URI_TOSTRING = {}",build);
-                    return build;
-                })
-                .retrieve()
-                .bodyToMono(CreditLoanResult.class)
-                .block();
+            ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json")
+                    .build()
+                    .get()
+                    .uri(uri -> {
+                        URI build = uri.queryParams(temp()).build();
+                        log.info("URI_TOSTRING = {}", build);
+                        return build;
+                    })
+                    .retrieve()
+                    .bodyToMono(ProductResult.class)
+                    .block();
+            assert result != null;
+            for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
+                Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
+                productService.save(product);
+            }
+        }
+
+    @GetMapping("/recommend")
+    public List<Product> Recommendation(
+            @RequestParam(required = false) String job,
+            @RequestParam(required = false) Integer age
+    ) {
+        Specification<Product> spec = (root, query, criteriaBuilder) -> null;
+
+        if (age != null)
+            spec = spec.and(TodoSpecification.withAge(age));
+        if (job != null)
+            spec = spec.and(TodoSpecification.withJob(job));
+
+        return productRepository.findAll(spec);
+    }
+
+    @GetMapping("/searchLoan")
+    public List<Product> searchLoan(
+            @RequestParam String financialCompanyName,
+            @RequestParam String productName
+    ) {
+        Specification<Product> spec = (root, query, criteriaBuilder) -> null;
+
+        if (financialCompanyName != null)
+            spec = spec.and(TodoSpecification.withCompanyName(financialCompanyName));
+        if (financialCompanyName != null)
+            spec = spec.and(TodoSpecification.withProductName(productName));
+
+        return productRepository.findAll(spec);
     }
 
     private MultiValueMap<String, String> temp(){
@@ -103,5 +139,21 @@ public class FinancialProductSearchController {
         temp.add("topFinGrpNo","020000"); // 은행 : 020000
         temp.add("pageNo","1");
         return temp;
+    }
+
+    public Product convertToEntity(ProductBaseList baseList, ProductOptionList optionList){ // Rate와 Age 추가예정
+        return Product.builder()
+                .financialCompanyName(baseList.getKorCoNm())
+                .financialCompanyNumber(baseList.getKorCoNm())
+                .productName(baseList.getFinPrdtNm())
+                .productNumber(baseList.getFinPrdtCd())
+                .cbName(baseList.getCbName())
+                .joinWay(baseList.getJoinWay())
+                .creditProductTypeName(optionList.getCrdtPrdtTypeNm())
+                .age(20)
+                .rate(5.2)
+                .job("무직")
+                .build();
+
     }
 }
