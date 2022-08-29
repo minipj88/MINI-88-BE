@@ -27,19 +27,15 @@ public class MemberController {
         return "hello";
     }
 
-    @PostMapping("/regist")
-    public ResultDto<String> resist(RegistMemberDto registMemberDto){
-        memberService.regist(registMemberDto);
-        ResultDto<String> resultDto = new ResultDto<>();
-        resultDto.setResult(true);
-        return resultDto;
+    @PostMapping("/register")
+    public void resister(RegistMemberDto registMemberDto){
+        memberService.register(registMemberDto);
     }
 
     @PostMapping("/login")
     public ResultDto<String> login(LoginDto loginDto) throws Exception {
         memberService.login(loginDto);
         ResultDto<String> resultDto = new ResultDto<>();
-        resultDto.setResult(true);
         return resultDto;
     }
 

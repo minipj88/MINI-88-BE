@@ -20,7 +20,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public void regist(RegistMemberDto registMemberDto) {
+    public void register(RegistMemberDto registMemberDto) {
         Optional<Member> memberOpt = memberRepository.findByEmail(registMemberDto.getEmail());
         if(memberOpt.isEmpty()){
             Member member = Member.builder()
@@ -35,13 +35,8 @@ public class MemberService {
         }
     }
 
-    public boolean login(LoginDto loginDto) {
-        Optional<Member> memberOpt = memberRepository.findByEmail(loginDto.getEmail());
-        if(memberOpt.isPresent()){
-            if( memberOpt.get().getPassword().equals(loginDto.getPassword()) ){
-                return true;
-            }
-        }
-        return false;
+    public void login(LoginDto loginDto) throws Exception {
+        memberRepository.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword())
+                .orElseThrow(()->new Exception("로그인 실패"));
     }
 }
