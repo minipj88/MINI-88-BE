@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,10 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
 
-    @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value = { "", "/" })
-    public String hello() {
-        return "hello";
-    }
 
     @PostMapping("/regist")
     public ResultDto<String> resist(RegistMemberDto registMemberDto){
