@@ -14,17 +14,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
     @Column(name = "PRODUCTNAME", nullable = false)
     private String productName; // 금융상품명
-    private int age;
+    private int age;    //20-30, 40, 50-60, all 
     private double rate;
     private String job;
     private String financialCompanyNumber;
