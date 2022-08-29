@@ -27,17 +27,17 @@ public class Product {
     private String creditProductTypeName;
 
     @Builder
-    public Product(String financialCompanyNumber, String financialCompanyName, String productNumber, String productName, String cbName, String creditProductTypeName, String joinWay, Integer age, Double rate, String job){
-        this.financialCompanyName = financialCompanyName;
-        this.productNumber = productNumber;
+    public Product(Long id, String productName, int age, double rate, String job, String financialCompanyNumber, String financialCompanyName, String productNumber, String joinWay, String cbName, String creditProductTypeName) {
+        this.id = id;
         this.productName = productName;
-        this.cbName = cbName;
-        this.joinWay = joinWay;
         this.age = age;
         this.rate = rate;
         this.job = job;
+        this.financialCompanyNumber = financialCompanyNumber;
+        this.financialCompanyName = financialCompanyName;
+        this.productNumber = productNumber;
+        this.joinWay = joinWay;
+        this.cbName = cbName;
         this.creditProductTypeName = creditProductTypeName;
-
     }
-
 }
