@@ -33,6 +33,7 @@ public class Product {
 
     @Builder
     public Product(Long id, String productName, int age, double rate, String job, String financialCompanyName, String productNumber, String joinWay, String cbName) {
+
         this.id = id;
         this.productName = productName;
         this.age = age;
