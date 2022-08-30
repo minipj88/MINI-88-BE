@@ -26,16 +26,16 @@ public class Cart {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(nullable = false)
-    LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDate;
 
     @Column(nullable = false)
     private String memberEmail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="productId", nullable = false)
     private Product product;
 

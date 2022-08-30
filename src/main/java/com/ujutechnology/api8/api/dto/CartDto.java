@@ -8,6 +8,6 @@ import lombok.Data;
  */
 @Data
 public class CartDto {
-    String email;
-    Long productId;
+    private String email;
+    private Long productId;
 }
