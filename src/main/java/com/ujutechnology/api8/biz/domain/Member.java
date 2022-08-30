@@ -29,27 +29,27 @@ public class Member {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    String email;
+    private String email;
 
     @Column(nullable = false)
-    String password;
+    private String password;
 
-    String token;
+    private String token;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(nullable = false)
-    LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDate;
 
-    String nickName;
-    String profilePhoto;
-    String job;
-    int age;
-    int credit;
-    int point;
+    private String nickName;
+    private String profilePhoto;
+    private String job;
+    private int age;
+    private int credit;
+    private int point;
 
     @Builder
     public Member(Long id, String email, String password, String token, LocalDateTime createdDate, LocalDateTime modifiedDate, String nickName, String profilePhoto, String job, int age, int credit, int point) {

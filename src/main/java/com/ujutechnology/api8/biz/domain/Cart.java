@@ -26,11 +26,11 @@ public class Cart {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(nullable = false)
-    LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDate;
 
     @Column(nullable = false)
     private String memberEmail;

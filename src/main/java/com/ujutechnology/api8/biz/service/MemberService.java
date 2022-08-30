@@ -1,6 +1,7 @@
 package com.ujutechnology.api8.biz.service;
 
 import com.ujutechnology.api8.api.dto.LoginDto;
+import com.ujutechnology.api8.api.dto.MemberDto;
 import com.ujutechnology.api8.api.dto.RegistMemberDto;
 import com.ujutechnology.api8.biz.domain.Member;
 import com.ujutechnology.api8.biz.repository.MemberRepository;
@@ -38,5 +39,11 @@ public class MemberService {
     public void login(LoginDto loginDto) throws Exception {
         memberRepository.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword())
                 .orElseThrow(()->new Exception("로그인 실패"));
+    }
+
+    public void getMember(String email, MemberDto memberDto) {
+        memberRepository.findByEmail(email).ifPresent(member -> {
+            memberDto.setMember(member);
+        });
     }
 }
