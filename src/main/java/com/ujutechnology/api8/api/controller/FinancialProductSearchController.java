@@ -49,7 +49,7 @@ public class FinancialProductSearchController {
                 .block();
         assert result != null;
         for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
-            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"적금");
             productService.save(product);
         }
     }
@@ -69,7 +69,7 @@ public class FinancialProductSearchController {
                 .block();
         assert result != null;
         for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
-            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"전세");
             productService.save(product);
         }
     }
@@ -89,7 +89,7 @@ public class FinancialProductSearchController {
                 .block();
         assert result != null;
         for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
-            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"주택");
             productService.save(product);
         }
     }
@@ -109,7 +109,7 @@ public class FinancialProductSearchController {
                     .block();
             assert result != null;
             for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
-                Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i));
+                Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"신용");
                 productService.save(product);
             }
         }
@@ -154,6 +154,12 @@ public class FinancialProductSearchController {
         return product;
     }
 
+    @GetMapping("/main")
+    public List<Product> getProductList(){
+        List<Product> productList = productRepository.findAll();
+        return productList;
+    }
+
     private MultiValueMap<String, String> temp(){
         LinkedMultiValueMap<String, String> temp = new LinkedMultiValueMap<>();
         temp.add("auth","c407c9271bf8cd469648c7e40a6de96e"); // api키
@@ -162,7 +168,7 @@ public class FinancialProductSearchController {
         return temp;
     }
 
-    private Product convertToEntity(ProductBaseList baseList, ProductOptionList optionList){ // Rate와 Age 추가예정
+    private Product convertToEntity(ProductBaseList baseList, ProductOptionList optionList, String productType){ // Rate와 Age 추가예정
         return Product.builder()
                 .financialCompanyName(baseList.getKorCoNm())
                 .productName(baseList.getFinPrdtNm())
@@ -172,6 +178,7 @@ public class FinancialProductSearchController {
                 .age(20)
                 .rate(5.2)
                 .job("무직")
+                .productType(productType)
                 .build();
 
     }

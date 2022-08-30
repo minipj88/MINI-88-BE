@@ -30,9 +30,11 @@ public class Product {
     private String joinWay;
     @Column(name="CBNAME")
     private String cbName;
+    @Column(name="PRODUCTTYPE")
+    private String productType;
 
     @Builder
-    public Product(Long id, String productName, int age, double rate, String job, String financialCompanyName, String productNumber, String joinWay, String cbName) {
+    public Product(Long id, String productName, int age, double rate, String job, String financialCompanyName, String productNumber, String joinWay, String cbName, String productType) {
         this.id = id;
         this.productName = productName;
         this.age = age;
@@ -42,5 +44,6 @@ public class Product {
         this.productNumber = productNumber;
         this.joinWay = joinWay;
         this.cbName = cbName;
+        this.productType = productType;
     }
 }
