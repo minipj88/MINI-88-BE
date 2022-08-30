@@ -26,22 +26,22 @@ import java.time.LocalDateTime;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(nullable = false)
-    LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDate;
 
     @Column(nullable = false)
-    String memberEmail;
+    private String memberEmail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="productId", nullable = false)
-    Product product;
+    private Product product;
 
     @Builder
     public Reservation(Long id, LocalDateTime createdDate, LocalDateTime modifiedDate, String memberEmail, Product product) {
