@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author kei
  * @since 2022-08-26
@@ -31,5 +33,9 @@ public class ReservationService {
 
     public void cancle(ReservationDto reservationDto) {
             reservationRepository.deleteByMemberEmailAndProductId(reservationDto.getEmail(), reservationDto.getProductId());
+    }
+
+    public List<Reservation> getReservationList(String email) {
+        return reservationRepository.findByMemberEmail(email);
     }
 }
