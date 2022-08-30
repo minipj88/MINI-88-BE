@@ -21,8 +21,8 @@ public class ProductService {
     }
 
     @Transactional
-    public List<Product> getProduct(String tag) {
-        List<Product> findProduct = productRepository.findAllByTag(tag);
+    public List<Product> getProduct(String productType) {
+        List<Product> findProduct = productRepository.findAllByProductType(productType);
         return findProduct;
     }
 
