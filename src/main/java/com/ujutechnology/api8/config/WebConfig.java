@@ -1,0 +1,21 @@
+package com.ujutechnology.api8.config;
+
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+/**
+ * @author kei
+ * @since 2022-08-30
+ */
+
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .maxAge(3000)
+                ;
+
+    }
+}
