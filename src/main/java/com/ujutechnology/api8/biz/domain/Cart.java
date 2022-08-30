@@ -35,7 +35,7 @@ public class Cart {
     @Column(nullable = false)
     private String memberEmail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="productId", nullable = false)
     private Product product;
 

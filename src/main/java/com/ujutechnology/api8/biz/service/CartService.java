@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -24,5 +26,9 @@ public class CartService {
 
     public void deleteCart(CartDto cartDto) {
         cartRepository.deleteByMemberEmailAndProductId(cartDto.getEmail(), cartDto.getProductId());
+    }
+
+    public List<Cart> getCartList(String email) {
+        return cartRepository.findByMemberEmail(email);
     }
 }
