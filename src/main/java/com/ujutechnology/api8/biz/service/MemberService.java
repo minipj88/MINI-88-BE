@@ -21,7 +21,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public void register(RegistMemberDto registMemberDto) {
+    public void register(RegistMemberDto registMemberDto) throws Exception  {
         Optional<Member> memberOpt = memberRepository.findByEmail(registMemberDto.getEmail());
         if(memberOpt.isEmpty()){
             Member member = Member.builder()
@@ -33,6 +33,8 @@ public class MemberService {
                     .job(registMemberDto.getJob())
                     .build();
             memberRepository.save(member);
+        } else {
+            throw new Exception("회원가입 실패");
         }
     }
 

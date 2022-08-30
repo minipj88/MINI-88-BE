@@ -22,21 +22,28 @@ public class MemberController {
 
 
     @PostMapping("/register")
-    public void resister(@RequestBody RegistMemberDto registMemberDto){
+    public void resister(@RequestBody RegistMemberDto registMemberDto) throws Exception {
+        log.info(registMemberDto.toString());
         memberService.register(registMemberDto);
     }
 
     @PostMapping("/login")
-    public ResultDto<String> login(@RequestBody LoginDto loginDto) throws Exception {
+    public ResultDto<MemberDto> login(@RequestBody LoginDto loginDto) throws Exception {
+        log.info(loginDto.toString());
+
         memberService.login(loginDto);
-        ResultDto<String> resultDto = new ResultDto<>();
-        return resultDto;
+
+        return getMember(loginDto.getEmail());
     }
 
     @GetMapping("/member")
-    public MemberDto getMember(@RequestBody String email) {
+    public ResultDto<MemberDto> getMember(@RequestBody String email) {
+        log.info(email);
+
         MemberDto memberDto = new MemberDto();
         memberService.getMember(email, memberDto);
-        return memberDto;
+        ResultDto<MemberDto> resultDto = new ResultDto<>();
+        resultDto.setData(memberDto);
+        return resultDto;
     }
 }
