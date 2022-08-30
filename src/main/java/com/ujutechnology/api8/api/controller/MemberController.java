@@ -7,10 +7,7 @@ import com.ujutechnology.api8.api.dto.ResultDto;
 import com.ujutechnology.api8.biz.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kei
@@ -25,22 +22,21 @@ public class MemberController {
 
 
     @PostMapping("/register")
-    public void resister(RegistMemberDto registMemberDto){
+    public void resister(@RequestBody RegistMemberDto registMemberDto){
         memberService.register(registMemberDto);
     }
 
     @PostMapping("/login")
-    public ResultDto<String> login(LoginDto loginDto) throws Exception {
+    public ResultDto<String> login(@RequestBody LoginDto loginDto) throws Exception {
         memberService.login(loginDto);
         ResultDto<String> resultDto = new ResultDto<>();
         return resultDto;
     }
 
     @GetMapping("/member")
-    public MemberDto getMember(String email) {
+    public MemberDto getMember(@RequestBody String email) {
         MemberDto memberDto = new MemberDto();
         memberService.getMember(email, memberDto);
         return memberDto;
     }
-
 }
