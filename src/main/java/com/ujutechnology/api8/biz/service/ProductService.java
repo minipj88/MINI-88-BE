@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -15,6 +18,12 @@ public class ProductService {
     @Transactional
     public void save(Product product){
         productRepository.save(product);
+    }
+
+    @Transactional
+    public List<Product> getProduct(String tag) {
+        List<Product> findProduct = productRepository.findAllByTag(tag);
+        return findProduct;
     }
 
 }

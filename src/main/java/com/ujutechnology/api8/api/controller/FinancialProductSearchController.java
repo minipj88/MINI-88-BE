@@ -160,6 +160,11 @@ public class FinancialProductSearchController {
         return productList;
     }
 
+    @GetMapping("/classification")
+    public List<Product> classifyingProduct(String tag){
+        return productService.getProduct(tag);
+    }
+
     private MultiValueMap<String, String> temp(){
         LinkedMultiValueMap<String, String> temp = new LinkedMultiValueMap<>();
         temp.add("auth","c407c9271bf8cd469648c7e40a6de96e"); // api키
