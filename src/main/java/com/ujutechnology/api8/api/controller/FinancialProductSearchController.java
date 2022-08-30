@@ -161,8 +161,8 @@ public class FinancialProductSearchController {
     }
 
     @GetMapping("/classification")
-    public List<Product> classifyingProduct(String tag){
-        return productService.getProduct(tag);
+    public List<Product> classifyingProduct(String productType){
+        return productService.getProduct(productType);
     }
 
     private MultiValueMap<String, String> temp(){
