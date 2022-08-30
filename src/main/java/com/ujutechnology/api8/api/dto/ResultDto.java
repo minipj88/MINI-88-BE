@@ -8,6 +8,5 @@ import lombok.*;
  */
 @Data
 public class ResultDto<T> {
-    boolean result;
     private T data;
 }

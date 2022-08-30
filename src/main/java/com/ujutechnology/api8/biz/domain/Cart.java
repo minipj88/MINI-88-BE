@@ -24,8 +24,6 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String memberEmail;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     LocalDateTime createdDate;
@@ -34,16 +32,19 @@ public class Cart {
     @Column(nullable = false)
     LocalDateTime modifiedDate;
 
+    @Column(nullable = false)
+    private String memberEmail;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="productId")
+    @JoinColumn(name="productId", nullable = false)
     private Product product;
 
     @Builder
-    public Cart(Long id, String memberEmail, LocalDateTime createdDate, LocalDateTime modifiedDate, Product product) {
+    public Cart(Long id, LocalDateTime createdDate, LocalDateTime modifiedDate, String memberEmail, Product product) {
         this.id = id;
-        this.memberEmail = memberEmail;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
+        this.memberEmail = memberEmail;
         this.product = product;
     }
 }
