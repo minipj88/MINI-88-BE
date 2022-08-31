@@ -3,10 +3,11 @@ package com.ujutechnology.api8.api.controller;
 import com.ujutechnology.api8.api.dto.LoginDto;
 import com.ujutechnology.api8.api.dto.MemberDto;
 import com.ujutechnology.api8.api.dto.RegistMemberDto;
-import com.ujutechnology.api8.api.dto.ResultDto;
 import com.ujutechnology.api8.biz.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,27 +24,26 @@ public class MemberController {
 
     @PostMapping("/register")
     public void resister(@RequestBody RegistMemberDto registMemberDto) throws Exception {
-        log.info(registMemberDto.toString());
+        log.info("resister>>> "+registMemberDto.toString());
         memberService.register(registMemberDto);
     }
 
     @PostMapping("/login")
-    public ResultDto<MemberDto> login(@RequestBody LoginDto loginDto) throws Exception {
-        log.info(loginDto.toString());
-
-        memberService.login(loginDto);
-
+    public ResponseEntity<MemberDto> login(@RequestBody LoginDto loginDto) throws Exception {
+        log.info("login>>> "+loginDto.toString());
+        try {
+            memberService.login(loginDto);
+        } catch (Exception e){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         return getMember(loginDto.getEmail());
     }
 
     @GetMapping("/member")
-    public ResultDto<MemberDto> getMember(@RequestBody String email) {
-        log.info(email);
-
+    public ResponseEntity<MemberDto> getMember(String email) {
+        log.info("getMember>>> "+email);
         MemberDto memberDto = new MemberDto();
         memberService.getMember(email, memberDto);
-        ResultDto<MemberDto> resultDto = new ResultDto<>();
-        resultDto.setData(memberDto);
-        return resultDto;
+        return new ResponseEntity(memberDto, HttpStatus.OK);
     }
 }

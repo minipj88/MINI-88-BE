@@ -34,6 +34,11 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
+    private String name;
+
+    @Column(nullable = false)
+    private String role;
+
     private String token;
 
     @CreatedDate
@@ -44,7 +49,6 @@ public class Member {
     @Column(nullable = false)
     private LocalDateTime modifiedDate;
 
-    private String nickName;
     private String profilePhoto;
     private String job;
     private int age;
@@ -52,14 +56,15 @@ public class Member {
     private int point;
 
     @Builder
-    public Member(Long id, String email, String password, String token, LocalDateTime createdDate, LocalDateTime modifiedDate, String nickName, String profilePhoto, String job, int age, int credit, int point) {
+    public Member(Long id, String email, String password, String name, String role, String token, LocalDateTime createdDate, LocalDateTime modifiedDate, String profilePhoto, String job, int age, int credit, int point) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.role = role;
         this.token = token;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
-        this.nickName = nickName;
         this.profilePhoto = profilePhoto;
         this.job = job;
         this.age = age;

@@ -5,6 +5,8 @@ import com.ujutechnology.api8.biz.domain.Reservation;
 import com.ujutechnology.api8.biz.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,20 +23,19 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/reservation")
-    public void register(ReservationDto reservationDto){
-        log.info("reservation >>>"+reservationDto.toString());
-
+    public void register(@RequestBody ReservationDto reservationDto){
+        log.info("register>>> "+reservationDto.toString());
         reservationService.register(reservationDto);
     }
     @DeleteMapping("/reservation")
-    public void cancle(ReservationDto reservationDto){
-        log.info("reservation >>>"+reservationDto.toString());
-
+    public void cancle(@RequestBody ReservationDto reservationDto){
+        log.info("cancle>>> "+reservationDto.toString());
         reservationService.cancle(reservationDto);
     }
 
     @GetMapping("/reservations")
-    public List<Reservation> getReservationList(String email) {
-        return reservationService.getReservationList(email);
+    public ResponseEntity<List<Reservation>> getReservationList(String email) {
+        log.info("getReservationList>>> "+email);
+        return new ResponseEntity(reservationService.getReservationList(email), HttpStatus.OK);
     }
 }
