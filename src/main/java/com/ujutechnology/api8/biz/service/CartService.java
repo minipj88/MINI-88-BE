@@ -27,8 +27,11 @@ public class CartService {
     public void deleteCart(CartDto cartDto) {
         cartRepository.deleteByMemberEmailAndProductId(cartDto.getEmail(), cartDto.getProductId());
     }
-
+    public void deleteCartList(String email) {
+        cartRepository.deleteByMemberEmail(email);
+    }
     public List<Cart> getCartList(String email) {
         return cartRepository.findByMemberEmail(email);
     }
+
 }
