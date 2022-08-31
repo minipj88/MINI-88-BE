@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class MemberDto {
     private String email;
-    private String nickName;
+    private String name;
     private String profilePhoto;
     private String job;
     private int age;
@@ -19,7 +19,7 @@ public class MemberDto {
 
     public void setMember(Member member) {
         this.email = member.getEmail();
-        this.nickName = member.getNickName();
+        this.name = member.getName();
         this.profilePhoto = member.getProfilePhoto();
         this.job = member.getJob();
         this.age = member.getAge();
