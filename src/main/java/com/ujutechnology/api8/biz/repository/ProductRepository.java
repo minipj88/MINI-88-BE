@@ -1,6 +1,8 @@
 package com.ujutechnology.api8.biz.repository;
 
 import com.ujutechnology.api8.biz.domain.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,5 +13,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
-    List<Product> findAllByProductType(String ProductType);
+    Page<Product> findAllByProductType(String ProductType, Pageable pageable);
 }

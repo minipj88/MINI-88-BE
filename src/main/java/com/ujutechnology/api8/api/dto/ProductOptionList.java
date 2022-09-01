@@ -18,7 +18,15 @@ public class ProductOptionList {
     private String crdtLendRateType; // 금리구분 코드
     private String crdtLendRateTypeNm; // 금리구분
     private String crdtGradAvg; // 평균 금리
-    private String lend_rate_min; // 대출금리_최저
-    private String lend_rate_max; // 대출금리_최고
+    private Double lendRateMin; // 대출금리_최저
+    private Double lendRateMax; // 대출금리_최고
+    private String crdtGrad_1; // 최저점
+    private String crdtGrad_4;
+    private String crdtGrad_5;
+    private String crdtGrad_6;
+    private String crdtGrad_10;
+    private String crdtGrad_11;
+    private String crdtGrad_12;
+    private String crdtGrad_13;
 
 }

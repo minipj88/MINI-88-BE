@@ -21,12 +21,6 @@ public class TodoSpecification {
         );
     }
 
-    public static Specification<Product> withRate(Double rate) {
-        return (Specification<Product>) ((root, query, builder) ->
-                builder.lessThanOrEqualTo(root.get("rate"), rate)
-        );
-    }
-
     public static Specification<Product> withAge(Integer age) {
         return (Specification<Product>) ((root, query, builder) ->
                 builder.equal(root.get("age"), age)
