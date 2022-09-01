@@ -34,10 +34,12 @@ public class Product {
     private double minRate;
     @Column(name="MAXRATE")
     private double maxRate;
+    @Column(name="MAXAMOUNTS")
+    private String maxAmount;
 
     @Builder
 
-    public Product(Long id, String productName, int age, String job, String financialCompanyName, String productNumber, String joinWay, String cbName, String productType, double minRate, double maxRate) {
+    public Product(Long id, String productName, int age, String job, String financialCompanyName, String productNumber, String joinWay, String cbName, String productType, double minRate, double maxRate, String maxAmount) {
         this.id = id;
         this.productName = productName;
         this.age = age;
@@ -49,5 +51,6 @@ public class Product {
         this.productType = productType;
         this.minRate = minRate;
         this.maxRate = maxRate;
+        this.maxAmount = maxAmount;
     }
 }
