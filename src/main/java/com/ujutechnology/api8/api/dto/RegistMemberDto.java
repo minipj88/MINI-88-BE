@@ -10,7 +10,7 @@ import lombok.Data;
 public class RegistMemberDto {
     private String email;
     private String password;
-    private String nickName;
+    private String name;
     private String profilePhoto;
     private String job;
     private int age;

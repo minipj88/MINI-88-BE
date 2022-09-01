@@ -1,5 +1,6 @@
 package com.ujutechnology.api8.api.dto;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 /**
@@ -9,5 +10,6 @@ import lombok.Data;
 @Data
 public class CartDto {
     private String email;
+    @NotNull
     private Long productId;
 }
