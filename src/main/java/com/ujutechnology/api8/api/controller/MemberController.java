@@ -3,6 +3,7 @@ package com.ujutechnology.api8.api.controller;
 import com.ujutechnology.api8.api.dto.LoginDto;
 import com.ujutechnology.api8.api.dto.MemberDto;
 import com.ujutechnology.api8.api.dto.RegistMemberDto;
+import com.ujutechnology.api8.api.dto.CreditDto;
 import com.ujutechnology.api8.biz.service.MemberService;
 import com.ujutechnology.api8.security.MemberAuth;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDto loginDto, HttpSession session) throws Exception {
-        log.info("login>>> "+loginDto.toString());
+        log.info("login>>> "+ loginDto.toString());
         memberService.login(loginDto);
 
         MemberAuth auth = new MemberAuth();
@@ -62,5 +63,15 @@ public class MemberController {
         MemberDto memberDto = new MemberDto();
         memberService.getMember(email, memberDto);
         return ResponseEntity.ok(memberDto);
+    }
+
+    @PutMapping("/credit")
+    public ResponseEntity IncCredit(@RequestBody CreditDto creditDto, HttpSession session){
+        creditDto.setEmail(
+                ((MemberAuth)session.getAttribute("auth")).getEmail()
+        );
+        memberService.incCredit(creditDto);
+
+        return ResponseEntity.ok(creditDto);
     }
 }

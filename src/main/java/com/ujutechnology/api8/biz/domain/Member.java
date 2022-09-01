@@ -71,4 +71,8 @@ public class Member {
         this.credit = credit;
         this.point = point;
     }
+
+    public void setValidCredit(int credit) {
+        this.credit = Math.min(1000, this.credit+Math.abs(credit));
+    }
 }

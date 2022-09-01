@@ -1,5 +1,6 @@
 package com.ujutechnology.api8.biz.service;
 
+import com.ujutechnology.api8.api.dto.CreditDto;
 import com.ujutechnology.api8.api.dto.LoginDto;
 import com.ujutechnology.api8.api.dto.MemberDto;
 import com.ujutechnology.api8.api.dto.RegistMemberDto;
@@ -67,5 +68,13 @@ public class MemberService {
     public void getToken(MemberAuth auth) throws Exception {
         memberRepository.findByEmailAndToken(auth.getEmail(), auth.getToken())
                 .orElseThrow(AuthException::new);
+    }
+
+    public void incCredit(CreditDto creditDto) {
+        memberRepository.findByEmail(creditDto.getEmail()).ifPresent(member->{
+            member.setValidCredit(creditDto.getCredit());
+            memberRepository.save(member);
+            creditDto.setCredit(member.getCredit());
+        });
     }
 }
