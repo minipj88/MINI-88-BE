@@ -1,5 +1,6 @@
 package com.ujutechnology.api8.api.dto;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 /**
@@ -8,6 +9,8 @@ import lombok.Data;
  */
 @Data
 public class LoginDto {
+    @NotNull
     private String email;
+    @NotNull
     private String password;
 }
