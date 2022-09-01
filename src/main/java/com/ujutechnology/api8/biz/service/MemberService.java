@@ -5,10 +5,14 @@ import com.ujutechnology.api8.api.dto.MemberDto;
 import com.ujutechnology.api8.api.dto.RegistMemberDto;
 import com.ujutechnology.api8.biz.domain.Member;
 import com.ujutechnology.api8.biz.repository.MemberRepository;
+import com.ujutechnology.api8.security.JwtToken;
+import com.ujutechnology.api8.security.MemberAuth;
+import com.ujutechnology.api8.security.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.security.auth.message.AuthException;
 import java.util.Optional;
 
 /**
@@ -22,6 +26,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public void register(RegistMemberDto registMemberDto) throws Exception  {
+        registMemberDto.setPassword(PasswordEncoder.encode(registMemberDto.getPassword()));
         Optional<Member> memberOpt = memberRepository.findByEmail(registMemberDto.getEmail());
         if(memberOpt.isEmpty()){
             Member member = Member.builder()
@@ -40,13 +45,27 @@ public class MemberService {
     }
 
     public void login(LoginDto loginDto) throws Exception {
+        loginDto.setPassword(PasswordEncoder.encode(loginDto.getPassword()));
         memberRepository.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword())
-                .orElseThrow(()->new Exception("로그인 실패"));
+                .orElseThrow(AuthException::new);
     }
 
     public void getMember(String email, MemberDto memberDto) {
         memberRepository.findByEmail(email).ifPresent(member -> {
             memberDto.setMember(member);
         });
+    }
+
+    public void saveToken(MemberAuth auth) {
+        auth.setToken(JwtToken.Encode(auth.getEmail()));
+        memberRepository.findByEmail(auth.getEmail()).ifPresent(member -> {
+            member.setToken(auth.getToken());
+            memberRepository.save(member);
+        });
+    }
+
+    public void getToken(MemberAuth auth) throws Exception {
+        memberRepository.findByEmailAndToken(auth.getEmail(), auth.getToken())
+                .orElseThrow(AuthException::new);
     }
 }

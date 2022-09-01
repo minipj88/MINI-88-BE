@@ -5,7 +5,6 @@ import com.ujutechnology.api8.biz.domain.Reservation;
 import com.ujutechnology.api8.biz.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +35,6 @@ public class ReservationController {
     @GetMapping("/reservations")
     public ResponseEntity<List<Reservation>> getReservationList(String email) {
         log.info("getReservationList>>> "+email);
-        return new ResponseEntity(reservationService.getReservationList(email), HttpStatus.OK);
+        return ResponseEntity.ok(reservationService.getReservationList(email));
     }
 }
