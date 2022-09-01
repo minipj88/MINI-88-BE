@@ -4,11 +4,13 @@ import com.ujutechnology.api8.api.dto.LoginDto;
 import com.ujutechnology.api8.api.dto.MemberDto;
 import com.ujutechnology.api8.api.dto.RegistMemberDto;
 import com.ujutechnology.api8.biz.service.MemberService;
+import com.ujutechnology.api8.security.MemberAuth;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author kei
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-
     @PostMapping("/register")
     public void resister(@RequestBody RegistMemberDto registMemberDto) throws Exception {
         log.info("resister>>> "+registMemberDto.toString());
@@ -29,21 +30,37 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<MemberDto> login(@RequestBody LoginDto loginDto) throws Exception {
+    public ResponseEntity login(@RequestBody LoginDto loginDto, HttpSession session) throws Exception {
         log.info("login>>> "+loginDto.toString());
-        try {
-            memberService.login(loginDto);
-        } catch (Exception e){
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-        }
+        memberService.login(loginDto);
+
+        MemberAuth auth = new MemberAuth();
+        auth.setEmail(loginDto.getEmail());
+        memberService.saveToken(auth);
+        session.setAttribute("auth", auth);
+
         return getMember(loginDto.getEmail());
     }
 
+    @PostMapping("/auth")
+    public ResponseEntity auth(@RequestBody MemberAuth auth, HttpSession session) throws Exception {
+        log.info("auth>>> "+auth.toString());
+        memberService.getToken(auth);
+        session.setAttribute("auth", auth);
+        return getMember(auth.getEmail());
+    }
+
+    @GetMapping("/logout")
+    public void logout(HttpSession session){
+        log.info("logout");
+        session.invalidate();
+    }
+
     @GetMapping("/member")
-    public ResponseEntity<MemberDto> getMember(String email) {
+    public ResponseEntity getMember(String email) {
         log.info("getMember>>> "+email);
         MemberDto memberDto = new MemberDto();
         memberService.getMember(email, memberDto);
-        return new ResponseEntity(memberDto, HttpStatus.OK);
+        return ResponseEntity.ok(memberDto);
     }
 }
