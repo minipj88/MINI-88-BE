@@ -18,8 +18,6 @@ public class Product {
     private String productName; // 금융상품명
     @Column(name = "AGE")
     private int age;    //20-30, 40, 50-60, all
-    @Column(name = "RATE")
-    private double rate;
     @Column(name = "JOB")
     private String job;
     @Column(name = "COMPANYNAME")
@@ -32,18 +30,24 @@ public class Product {
     private String cbName;
     @Column(name="PRODUCTTYPE")
     private String productType;
+    @Column(name="MINRATE")
+    private double minRate;
+    @Column(name="MAXRATE")
+    private double maxRate;
 
     @Builder
-    public Product(Long id, String productName, int age, double rate, String job, String financialCompanyName, String productNumber, String joinWay, String cbName, String productType) {
+
+    public Product(Long id, String productName, int age, String job, String financialCompanyName, String productNumber, String joinWay, String cbName, String productType, double minRate, double maxRate) {
         this.id = id;
         this.productName = productName;
         this.age = age;
-        this.rate = rate;
         this.job = job;
         this.financialCompanyName = financialCompanyName;
         this.productNumber = productNumber;
         this.joinWay = joinWay;
         this.cbName = cbName;
         this.productType = productType;
+        this.minRate = minRate;
+        this.maxRate = maxRate;
     }
 }
