@@ -3,6 +3,8 @@ package com.ujutechnology.api8.biz.service;
 import com.ujutechnology.api8.biz.domain.Product;
 import com.ujutechnology.api8.biz.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +23,8 @@ public class ProductService {
     }
 
     @Transactional
-    public List<Product> getProduct(String productType) {
-        List<Product> findProduct = productRepository.findAllByProductType(productType);
-        return findProduct;
+    public Page<Product> getProduct(String productType, Pageable pageable) {
+        return productRepository.findAllByProductType(productType, pageable);
     }
 
 }
