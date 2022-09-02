@@ -176,8 +176,8 @@ public class FinancialProductSearchController {
 
     @GetMapping("/searchLoan")
     public List<Product> searchLoan(
-            @RequestParam String financialCompanyName,
-            @RequestParam String productName
+            @RequestParam(required = false) String financialCompanyName,
+            @RequestParam(required = false) String productName
     ) {
         Specification<Product> spec = (root, query, criteriaBuilder) -> null;
 
