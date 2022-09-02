@@ -30,7 +30,7 @@ class FinancialProductSearchControllerTest {
     public void testController() throws Exception{
 
         mockMvc.perform(get("/api/searchLoan")
-                .param("financialCompanyName","부산")
+                .param("financialCompanyName","")
                 .param("productName", "ONE"))
                 .andExpect(jsonPath("$", hasSize(2)));
     }

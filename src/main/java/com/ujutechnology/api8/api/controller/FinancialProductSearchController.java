@@ -183,7 +183,7 @@ public class FinancialProductSearchController {
 
         if (financialCompanyName != null)
             spec = spec.and(TodoSpecification.withCompanyName(financialCompanyName));
-        if (financialCompanyName != null)
+        if (productName != null)
             spec = spec.and(TodoSpecification.withProductName(productName));
 
         List<Product> productList = productRepository.findAll(spec);
