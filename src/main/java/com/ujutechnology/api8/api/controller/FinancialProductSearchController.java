@@ -47,19 +47,56 @@ public class FinancialProductSearchController {
 
     @Value("${external.api.key}")
     private String apiKey;
+    @Value("${bank.image.KakaoBank}")
+    private String Kakao;
+    @Value("${bank.image.KBBank}")
+    private String KB;
+    @Value("${bank.image.KBank}")
+    private String K;
+    @Value("${bank.image.CTBank}")
+    private String CT;
+    @Value("${bank.image.NHBank}")
+    private String NH;
+    @Value("${bank.image.SHBank}")
+    private String SH;
+    @Value("${bank.image.ShinhanBank}")
+    private String Shinhan;
+    @Value("${bank.image.KoreaIndustryBank}")
+    private String KoreaIndustry;
+    @Value("${bank.image.IBKBank}")
+    private String IBK;
+    @Value("${bank.image.GyeongNamBank}")
+    private String GyeongNam;
+    @Value("${bank.image.JBBank}")
+    private String JB;
+    @Value("${bank.image.JejuBank}")
+    private String Jeju;
+    @Value("${bank.image.GwangjuBank}")
+    private String Gwangju;
+    @Value("${bank.image.SCBank}")
+    private String SC;
+    @Value("${bank.image.WooriBank}")
+    private String Woori;
+    @Value("${bank.image.BusanBank}")
+    private String Busan;
+    @Value("${bank.image.DaeguBank}")
+    private String Daegu;
+    @Value("${bank.image.HanaBank}")
+    private String Hana;
+
 
     @EventListener(ApplicationReadyEvent.class)
     public void createProduct() throws IOException {
 
         List<String> jobs = new ArrayList<>();
         List<Integer> ages = new ArrayList<>();
-        List<String> maxAmounts = new ArrayList<>();
+        List<Integer> maxAmounts = new ArrayList<>();
         for(int i=0; i<jsonData().size(); i++){
             JsonObject jsonObject = (JsonObject) jsonData().get(i);
 
             jobs.add(jsonObject.get("job").getAsString());
             ages.add(jsonObject.get("age").getAsInt());
-            maxAmounts.add(jsonObject.get("amount").getAsString());
+            maxAmounts.add(jsonObject.get("amount").getAsInt());
         }
 
         mortgageLoanProductsApi(jobs, ages, maxAmounts);
@@ -73,8 +110,7 @@ public class FinancialProductSearchController {
         return jsonArray;
     }
 
-    @GetMapping("/mortgageLoanProduct")
-    public void mortgageLoanProductsApi(List<String> jobs, List<Integer> ages, List<String> maxAmounts) {
+    public void mortgageLoanProductsApi(List<String> jobs, List<Integer> ages, List<Integer> maxAmounts) {
         ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/mortgageLoanProductsSearch.json")
                 .build()
                 .get()
@@ -90,14 +126,14 @@ public class FinancialProductSearchController {
         for (int i = 0; i < result.getResult().getBaseList().size(); i++) {
             double minRate = result.getResult().getOptionList().get(i).getLendRateMin();
             double maxRate = result.getResult().getOptionList().get(i).getLendRateMax();
-            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"전세", minRate, maxRate, jobs.get(count), ages.get(count), maxAmounts.get(count));
+            String image = ImageByBank(result, i);
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"전세", minRate, maxRate, jobs.get(count), ages.get(count), maxAmounts.get(count), image);
             productService.save(product);
             count++;
         }
     }
 
-    @GetMapping("/rentHouseLoanProduct")
-    public void rentHouseLoanProductsApi(List<String> jobs, List<Integer> ages, List<String> maxAmounts) {
+    public void rentHouseLoanProductsApi(List<String> jobs, List<Integer> ages, List<Integer> maxAmounts) {
         ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json")
                 .build()
                 .get()
@@ -122,14 +158,14 @@ public class FinancialProductSearchController {
                 maxRate = result.getResult().getOptionList().get(i).getLendRateMax();
             else
                 maxRate = 0.00;
-            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"주택", minRate, maxRate, jobs.get(count), ages.get(count), maxAmounts.get(count));
+            String image = ImageByBank(result, i);
+            Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"주택", minRate, maxRate, jobs.get(count), ages.get(count), maxAmounts.get(count), image);
             productService.save(product);
             count++;
         }
     }
 
-    @GetMapping("/creditLoanProduct")
-    public void creditLoanProductsApi(List<String> jobs, List<Integer> ages, List<String> maxAmounts) {
+    public void creditLoanProductsApi(List<String> jobs, List<Integer> ages, List<Integer> maxAmounts) {
             ProductResult result = webClient.baseUrl("http://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json")
                     .build()
                     .get()
@@ -151,8 +187,8 @@ public class FinancialProductSearchController {
                 Collections.sort(gradeList);
                 double minRate = Double.parseDouble(gradeList.get(0));
                 double maxRate = Double.parseDouble(gradeList.get(num-1));
-
-                Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"신용", minRate, maxRate, jobs.get(count), ages.get(count), maxAmounts.get(count));
+                String image = ImageByBank(result, i);
+                Product product = convertToEntity(result.getResult().getBaseList().get(i), result.getResult().getOptionList().get(i),"신용", minRate, maxRate, jobs.get(count), ages.get(count), maxAmounts.get(count), image);
                 productService.save(product);
                 count++;
             }
@@ -219,7 +255,7 @@ public class FinancialProductSearchController {
         return temp;
     }
 
-    private Product convertToEntity(ProductBaseList baseList, ProductOptionList optionList, String productType, double minRate, double maxRate, String jobs, int ages, String maxAmounts){ // Rate와 Age 추가예정
+    private Product convertToEntity(ProductBaseList baseList, ProductOptionList optionList, String productType, double minRate, double maxRate, String jobs, int ages, int maxAmounts, String image){
         return Product.builder()
                 .financialCompanyName(baseList.getKorCoNm())
                 .productName(baseList.getFinPrdtNm())
@@ -232,6 +268,68 @@ public class FinancialProductSearchController {
                 .job(jobs)
                 .productType(productType)
                 .maxAmount(maxAmounts)
+                .image(image)
                 .build();
+    }
+
+    private String ImageByBank(ProductResult result, int i) {
+        String image = "";
+        switch (result.getResult().getBaseList().get(i).getKorCoNm()){
+            case "부산은행" :
+                image = Busan;
+                break;
+            case "대구은행" :
+                image = Daegu;
+                break;
+            case "하나은행" :
+                image = Hana;
+                break;
+            case "우리은행" :
+                image = Woori;
+                break;
+            case "한국스탠다드차타드은행" :
+                image = SC;
+                break;
+            case "광주은행" :
+                image = Gwangju;
+                break;
+            case "제주은행" :
+                image = Jeju;
+                break;
+            case "전북은행" :
+                image = JB;
+                break;
+            case "경남은행" :
+                image = GyeongNam;
+                break;
+            case "중소기업은행" :
+                image = IBK;
+                break;
+            case "한국산업은행" :
+                image = KoreaIndustry;
+                break;
+            case "국민은행" :
+                image = KB;
+                break;
+            case "신한은행" :
+                image = Shinhan;
+                break;
+            case "농협은행주식회사" :
+                image = NH;
+                break;
+            case "수협은행" :
+                image = SH;
+                break;
+            case "한국씨티은행" :
+                image = CT;
+                break;
+            case "주식회사 케이뱅크" :
+                image = K;
+                break;
+            case "주식회사 카카오뱅크" :
+                image = Kakao;
+                break;
+        }
+        return image;
     }
 }
