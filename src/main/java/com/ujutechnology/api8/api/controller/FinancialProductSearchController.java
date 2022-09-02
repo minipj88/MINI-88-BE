@@ -47,43 +47,6 @@ public class FinancialProductSearchController {
 
     @Value("${external.api.key}")
     private String apiKey;
-    @Value("${bank.image.KakaoBank}")
-    private String Kakao;
-    @Value("${bank.image.KBBank}")
-    private String KB;
-    @Value("${bank.image.KBank}")
-    private String K;
-    @Value("${bank.image.CTBank}")
-    private String CT;
-    @Value("${bank.image.NHBank}")
-    private String NH;
-    @Value("${bank.image.SHBank}")
-    private String SH;
-    @Value("${bank.image.ShinhanBank}")
-    private String Shinhan;
-    @Value("${bank.image.KoreaIndustryBank}")
-    private String KoreaIndustry;
-    @Value("${bank.image.IBKBank}")
-    private String IBK;
-    @Value("${bank.image.GyeongNamBank}")
-    private String GyeongNam;
-    @Value("${bank.image.JBBank}")
-    private String JB;
-    @Value("${bank.image.JejuBank}")
-    private String Jeju;
-    @Value("${bank.image.GwangjuBank}")
-    private String Gwangju;
-    @Value("${bank.image.SCBank}")
-    private String SC;
-    @Value("${bank.image.WooriBank}")
-    private String Woori;
-    @Value("${bank.image.BusanBank}")
-    private String Busan;
-    @Value("${bank.image.DaeguBank}")
-    private String Daegu;
-    @Value("${bank.image.HanaBank}")
-    private String Hana;
-
 
     @EventListener(ApplicationReadyEvent.class)
     public void createProduct() throws IOException {
@@ -273,63 +236,46 @@ public class FinancialProductSearchController {
     }
 
     private String ImageByBank(ProductResult result, int i) {
-        String image = "";
         switch (result.getResult().getBaseList().get(i).getKorCoNm()){
             case "부산은행" :
-                image = Busan;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/ccbd1c20-39b6-42e8-90ca-b6a52d314bef-%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "대구은행" :
-                image = Daegu;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/7be7f832-17f5-4bb2-8100-8911a83a8755-%EB%8C%80%EA%B5%AC%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "하나은행" :
-                image = Hana;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/4edc0b4f-c40b-4e80-b5fe-4a3ac5acf546-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "우리은행" :
-                image = Woori;
-                break;
+                return  "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/caef28b7-6a52-427d-9ac4-8b0558560b3a-%EC%9A%B0%EB%A6%AC%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "한국스탠다드차타드은행" :
-                image = SC;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/c1616212-2d4d-40d5-b331-48f8e8bf13fe-%EC%8A%A4%ED%83%A0%EB%8B%A4%EB%93%9C%EB%A1%9C%EA%B3%A0.jpg";
             case "광주은행" :
-                image = Gwangju;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/b13b4806-5909-457a-a80e-637ed38fa5b0-%EA%B4%91%EC%A3%BC%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "제주은행" :
-                image = Jeju;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/1b896104-ee50-451c-90cc-332ad64c4720-%EC%A0%9C%EC%A3%BC%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "전북은행" :
-                image = JB;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/5de79600-79f5-43cc-b6cb-f8d7a3b82426-%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "경남은행" :
-                image = GyeongNam;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/c13e7a15-c777-475f-b839-35f9192cb36d-%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "중소기업은행" :
-                image = IBK;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/9e57dcc5-35a2-4c60-8c90-6a29815fa487-%EC%A4%91%EC%86%8C%EA%B8%B0%EC%97%85%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "한국산업은행" :
-                image = KoreaIndustry;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/56355fc2-852f-4d3d-afbd-3320b03766b5-%ED%95%9C%EA%B5%AD%EC%82%B0%EC%97%85%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "국민은행" :
-                image = KB;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/96c1a48d-3c51-4ae6-b568-8101391ed772-%EA%B5%AD%EB%AF%BC%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "신한은행" :
-                image = Shinhan;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/5909c395-7531-450b-8998-318fc57539d7-%EC%8B%A0%ED%95%9C%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "농협은행주식회사" :
-                image = NH;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/ce77a5b5-ba88-4b22-9f5f-b07ac224dd2f-%EB%86%8D%ED%98%91%EB%A1%9C%EA%B3%A0.jpg";
             case "수협은행" :
-                image = SH;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/01867fda-1ac6-4d88-a301-7dcb186868ec-%EC%88%98%ED%98%91%EB%A1%9C%EA%B3%A0.jpg";
             case "한국씨티은행" :
-                image = CT;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/71634745-1530-4908-9f3c-654a354f55d2-%ED%95%9C%EA%B5%AD%EC%94%A8%ED%8B%B0%EC%9D%80%ED%96%89%EB%A1%9C%EA%B3%A0.jpg";
             case "주식회사 케이뱅크" :
-                image = K;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/d013fb36-cf36-43a6-b174-9a880dd7a86a-%EC%BC%80%EC%9D%B4%EB%B1%85%ED%81%AC%EB%A1%9C%EA%B3%A0.jpg";
             case "주식회사 카카오뱅크" :
-                image = Kakao;
-                break;
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/b1dc88e6-0f65-4e82-899f-ded47f2f0eb1-%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%B1%85%ED%81%AC%EB%A1%9C%EA%B3%A0.png";
+            case "토스뱅크 주식회사" :
+                return "https://8tak8takbucket.s3.ap-northeast-2.amazonaws.com/b7cd7f54-dade-43d2-9866-8702cfe32887-%ED%86%A0%EC%8A%A4%EB%B1%85%ED%81%AC%EB%A1%9C%EA%B3%A0.png";
         }
-        return image;
+        return "";
     }
 }
