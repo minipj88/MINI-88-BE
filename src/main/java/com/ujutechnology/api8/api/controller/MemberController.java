@@ -29,7 +29,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDto loginDto, @ApiIgnore HttpSession session) throws Exception {
+    public ResponseEntity<MemberDto> login(@RequestBody LoginDto loginDto, @ApiIgnore HttpSession session) throws Exception {
         log.info("login>>> "+ loginDto.toString());
         memberService.login(loginDto);
 
@@ -42,7 +42,7 @@ public class MemberController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity auth(@RequestBody MemberAuth auth, @ApiIgnore HttpSession session) throws Exception {
+    public ResponseEntity<MemberDto> auth(@RequestBody MemberAuth auth, @ApiIgnore HttpSession session) throws Exception {
         log.info("auth>>> "+auth.toString());
         memberService.getToken(auth);
         session.setAttribute("auth", auth);
@@ -56,7 +56,7 @@ public class MemberController {
     }
 
     @GetMapping("/member")
-    public ResponseEntity getMember(String email) {
+    public ResponseEntity<MemberDto> getMember(String email) {
         log.info("getMember>>> "+email);
         MemberDto memberDto = new MemberDto();
         memberService.getMember(email, memberDto);
@@ -72,7 +72,7 @@ public class MemberController {
 
 
     @PutMapping("/credit")
-    public ResponseEntity IncCredit(@RequestBody CreditDto creditDto, @ApiIgnore HttpSession session){
+    public ResponseEntity<CreditDto> IncCredit(@RequestBody CreditDto creditDto, @ApiIgnore HttpSession session){
         creditDto.setEmail(
                 ((MemberAuth)session.getAttribute("auth")).getEmail()
         );
