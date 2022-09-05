@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +29,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDto loginDto, HttpSession session) throws Exception {
+    public ResponseEntity login(@RequestBody LoginDto loginDto, @ApiIgnore HttpSession session) throws Exception {
         log.info("login>>> "+ loginDto.toString());
         memberService.login(loginDto);
 
@@ -41,7 +42,7 @@ public class MemberController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity auth(@RequestBody MemberAuth auth, HttpSession session) throws Exception {
+    public ResponseEntity auth(@RequestBody MemberAuth auth, @ApiIgnore HttpSession session) throws Exception {
         log.info("auth>>> "+auth.toString());
         memberService.getToken(auth);
         session.setAttribute("auth", auth);
@@ -49,7 +50,7 @@ public class MemberController {
     }
 
     @GetMapping("/logout")
-    public void logout(HttpSession session){
+    public void logout(@ApiIgnore HttpSession session){
         log.info("logout");
         session.invalidate();
     }
@@ -63,7 +64,7 @@ public class MemberController {
     }
 
     @PutMapping("/member")
-    public void modifyMember(@RequestBody ModifyMemberDto memberDto, HttpSession session) {
+    public void modifyMember(@RequestBody ModifyMemberDto memberDto, @ApiIgnore HttpSession session) {
         log.info("modifyMember>>> "+memberDto);
         String email = ((MemberAuth)session.getAttribute("auth")).getEmail();
         memberService.modifyMember(email, memberDto);
@@ -71,7 +72,7 @@ public class MemberController {
 
 
     @PutMapping("/credit")
-    public ResponseEntity IncCredit(@RequestBody CreditDto creditDto, HttpSession session){
+    public ResponseEntity IncCredit(@RequestBody CreditDto creditDto, @ApiIgnore HttpSession session){
         creditDto.setEmail(
                 ((MemberAuth)session.getAttribute("auth")).getEmail()
         );
