@@ -72,7 +72,7 @@ public class MemberController {
 
 
     @PutMapping("/credit")
-    public ResponseEntity IncCredit(@RequestBody CreditDto creditDto, @ApiIgnore HttpSession session){
+    public ResponseEntity<CreditDto> IncCredit(@RequestBody CreditDto creditDto, @ApiIgnore HttpSession session){
         creditDto.setEmail(
                 ((MemberAuth)session.getAttribute("auth")).getEmail()
         );
