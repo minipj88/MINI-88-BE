@@ -15,7 +15,7 @@ import java.io.IOException;
  * @since 2022-09-01
  */
 @Slf4j
-@WebFilter(urlPatterns = {"/api/credit/*","/api/cart/*","/api/carts/*", "/api/reservation/*", "/api/reservations/*"})
+@WebFilter(urlPatterns = {"/api/memeber/*","/api/credit/*","/api/cart/*","/api/carts/*", "/api/reservation/*", "/api/reservations/*"})
 public class AuthenticationFilter implements Filter {
 
     @Override
