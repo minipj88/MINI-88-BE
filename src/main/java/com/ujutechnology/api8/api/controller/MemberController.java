@@ -1,9 +1,6 @@
 package com.ujutechnology.api8.api.controller;
 
-import com.ujutechnology.api8.api.dto.LoginDto;
-import com.ujutechnology.api8.api.dto.MemberDto;
-import com.ujutechnology.api8.api.dto.RegistMemberDto;
-import com.ujutechnology.api8.api.dto.CreditDto;
+import com.ujutechnology.api8.api.dto.*;
 import com.ujutechnology.api8.biz.service.MemberService;
 import com.ujutechnology.api8.security.MemberAuth;
 import lombok.RequiredArgsConstructor;
@@ -64,6 +61,14 @@ public class MemberController {
         memberService.getMember(email, memberDto);
         return ResponseEntity.ok(memberDto);
     }
+
+    @PutMapping("/member")
+    public void modifyMember(@RequestBody ModifyMemberDto memberDto, HttpSession session) {
+        log.info("modifyMember>>> "+memberDto);
+        String email = ((MemberAuth)session.getAttribute("auth")).getEmail();
+        memberService.modifyMember(email, memberDto);
+    }
+
 
     @PutMapping("/credit")
     public ResponseEntity IncCredit(@RequestBody CreditDto creditDto, HttpSession session){

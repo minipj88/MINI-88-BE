@@ -1,9 +1,6 @@
 package com.ujutechnology.api8.biz.service;
 
-import com.ujutechnology.api8.api.dto.CreditDto;
-import com.ujutechnology.api8.api.dto.LoginDto;
-import com.ujutechnology.api8.api.dto.MemberDto;
-import com.ujutechnology.api8.api.dto.RegistMemberDto;
+import com.ujutechnology.api8.api.dto.*;
 import com.ujutechnology.api8.biz.domain.Member;
 import com.ujutechnology.api8.biz.repository.MemberRepository;
 import com.ujutechnology.api8.security.JwtToken;
@@ -57,6 +54,16 @@ public class MemberService {
         });
     }
 
+    public void modifyMember(String email, ModifyMemberDto memberDto) {
+        memberRepository.findByEmail(email).ifPresent(member->{
+            member.setName(memberDto.getName());
+            member.setProfilePhoto(memberDto.getProfilePhoto());
+            member.setJob(memberDto.getJob());
+            member.setAge(memberDto.getAge());
+            memberRepository.save(member);
+        });
+    }
+
     public void saveToken(MemberAuth auth) {
         auth.setToken(JwtToken.Encode(auth.getEmail()));
         memberRepository.findByEmail(auth.getEmail()).ifPresent(member -> {
@@ -70,6 +77,7 @@ public class MemberService {
                 .orElseThrow(AuthException::new);
     }
 
+
     public void incCredit(CreditDto creditDto) {
         memberRepository.findByEmail(creditDto.getEmail()).ifPresent(member->{
             member.setValidCredit(creditDto.getCredit());
@@ -77,4 +85,6 @@ public class MemberService {
             creditDto.setCredit(member.getCredit());
         });
     }
+
+
 }
