@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/reservation")
-    public void register(@RequestBody ReservationDto reservationDto, HttpSession session){
+    public void register(@RequestBody ReservationDto reservationDto, @ApiIgnore HttpSession session){
         reservationDto.setEmail(
                 ((MemberAuth)session.getAttribute("auth")).getEmail()
         );
@@ -32,7 +33,7 @@ public class ReservationController {
         reservationService.register(reservationDto);
     }
     @DeleteMapping("/reservation")
-    public void cancle(@RequestBody ReservationDto reservationDto, HttpSession session){
+    public void cancle(@RequestBody ReservationDto reservationDto, @ApiIgnore HttpSession session){
         reservationDto.setEmail(
                 ((MemberAuth)session.getAttribute("auth")).getEmail()
         );

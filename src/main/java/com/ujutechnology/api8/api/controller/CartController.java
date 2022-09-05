@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping("/cart")
-    public void addCart(@RequestBody CartDto cartDto, HttpSession session) {
+    public void addCart(@RequestBody CartDto cartDto, @ApiIgnore HttpSession session) {
         cartDto.setEmail(
                 ((MemberAuth)session.getAttribute("auth")).getEmail()
         );
@@ -29,7 +30,7 @@ public class CartController {
     }
 
     @DeleteMapping("/cart")
-    public void deleteCart(@RequestBody CartDto cartDto, HttpSession session) {
+    public void deleteCart(@RequestBody CartDto cartDto, @ApiIgnore HttpSession session) {
         cartDto.setEmail(
                 ((MemberAuth)session.getAttribute("auth")).getEmail()
         );        log.info("deleteCart>>> "+ cartDto.toString());
@@ -37,14 +38,14 @@ public class CartController {
     }
 
     @DeleteMapping("/carts")
-    public void deleteCartList(HttpSession session) {
+    public void deleteCartList(@ApiIgnore HttpSession session) {
         String email = ((MemberAuth)session.getAttribute("auth")).getEmail();
         log.info("deleteCartList>>> "+ email);
         cartService.deleteCartList(email);
     }
 
     @GetMapping("/carts")
-    public ResponseEntity<List<Cart>> getCartList(HttpSession session) {
+    public ResponseEntity<List<Cart>> getCartList(@ApiIgnore HttpSession session) {
         String email = ((MemberAuth)session.getAttribute("auth")).getEmail();
         log.info("getCartList>>> "+email);
         return ResponseEntity.ok(cartService.getCartList(email));
