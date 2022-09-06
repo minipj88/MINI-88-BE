@@ -12,7 +12,7 @@
 - git, intellij, aws-ec2, aws-s3, amazon-rds
  
 ## 🤼‍♀️ 역할 및 담당
-- 김영석: 회원관리, 장바구니 관리, 예약 관리, aws배포, ci/cd
+- 김영석: 회원 관리, 장바구니 관리, 예약 관리, aws배포, ci/cd
 - 여병규:
 
 ### 회원관리
@@ -30,13 +30,6 @@
  - 회원정보 조회 및 수정(프로필사진,이름,나이,직업)
 
  </div>
-</details>  
-
-
-<details>
-<summary> </summary>
-<div markdown="1">
-</div>
 </details>  
 
 ### 금융상품
