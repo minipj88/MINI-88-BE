@@ -12,30 +12,26 @@
 - git, intellij, aws-ec2, aws-s3, amazon-rds
  
 ## 🤼‍♀️ 역할 및 담당
-- 김영석:
+- 김영석: 회원관리, 장바구니 관리, 예약 관리, aws배포, ci/cd
 - 여병규:
 
-### 회원가입
-
+### 회원관리
 <details>
 <summary> </summary>
 <div markdown="1">
  
+#### 회원가입
  - email, 비밀번호, 이름, 프로필사진, 직업, 나이를 받아서 회원가입을 합니다.
-</div>
-</details>  
-
-### 로그인
-
-<details>
-<summary> </summary>
-<div markdown="1">
- 
-  - email과 비밀번호를 입력하여 로그인을 하고, 로그인시 토큰을 발급받습니다.
-</div>
-</details>  
-
+#### ID/PWD 로그인
+ - email과 비밀번호를 입력하여 로그인을 하고, 로그인시 토큰을 발급받습니다. 
+#### 토큰 로그인
+ - jwt으로 로그인합니다.
 ### 마이페이지
+ - 회원정보 수정(프로필사진,이름,나이,직업)
+ - 예약상품 취소
+ </div>
+</details>  
+
 
 <details>
 <summary> </summary>
