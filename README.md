@@ -9,7 +9,7 @@
 - spring boot, web, jpa, jwt, mysql, h2-database, swagger-ui, gradle
 
 ## 🛠️ Tool
-- intellij, aws-ec2, aws-s3, amazon-rds
+- git, intellij, aws-ec2, aws-s3, amazon-rds
  
 ## 🤼‍♀️ 역할 및 담당
 - 김영석:
