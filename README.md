@@ -1,3 +1,78 @@
+# 금융상품 추천 서비스 개발
+- FE 배포: http://
+- BE 배포: http://api8.ujutechnology.com:8080/swagger-ui/
+
+## 📅 기간
+2022.08.23 ~ 2022.09.06
+
+## ⚡ Skills
+- spring boot, web, jpa, jwt, mysql, h2-database, swagger-ui, gradle
+
+## 🛠️ Tool
+- intellij, aws-ec2, aws-s3, amazon-rds
+ 
+## 🤼‍♀️ 역할 및 담당
+- 김영석:
+- 여병규:
+
+### 회원가입
+
+<details>
+<summary> </summary>
+<div markdown="1">
+</div>
+</details>  
+
+### 로그인
+
+<details>
+<summary> </summary>
+<div markdown="1">
+</div>
+</details>  
+
+### 마이페이지
+
+<details>
+<summary> </summary>
+<div markdown="1">
+</div>
+</details>  
+
+### 금융상품
+
+<details>
+<summary> </summary>
+<div markdown="1">
+</div>
+</details>  
+
+### 북마크
+
+<details>
+<summary> </summary>
+<div markdown="1">
+</div>
+</details>  
+
+### 장비구니
+
+<details>
+<summary> </summary>
+<div markdown="1">
+</div>
+</details>  
+
+### 상품신청
+
+<details>
+<summary> </summary>
+<div markdown="1">
+</div>
+</details>  
+
+
+
 ## GIT 협의  
 ### **1️⃣브랜치 전략**
 <details>
