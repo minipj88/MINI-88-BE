@@ -20,6 +20,8 @@
 <details>
 <summary> </summary>
 <div markdown="1">
+ 
+ - email, 비밀번호, 이름, 프로필사진, 직업, 나이를 받아서 회원가입을 합니다.
 </div>
 </details>  
 
@@ -28,6 +30,8 @@
 <details>
 <summary> </summary>
 <div markdown="1">
+ 
+  - email과 비밀번호를 입력하여 로그인을 하고, 로그인시 토큰을 발급받습니다.
 </div>
 </details>  
 
