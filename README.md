@@ -67,6 +67,8 @@
 <details>
 <summary> </summary>
 <div markdown="1">
+ 
+ - 상품번호와 이메일 값을 입력받아 해당 상품을 장바구니에 저장하거나 장바구니 목록을 삭제할 수 있습니다.
 </div>
 </details>  
 
@@ -75,6 +77,8 @@
 <details>
 <summary> </summary>
 <div markdown="1">
+ 
+ - 장바구니에 있는 상품들을 신청할 수 있습니다.
 </div>
 </details>  
 
