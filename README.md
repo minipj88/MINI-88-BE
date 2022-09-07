@@ -6,10 +6,10 @@
 2022.08.23 ~ 2022.09.06
 
 ## ⚡ Skills
-- spring boot, web, jpa, jwt, mysql, h2-database, swagger-ui, gradle
+- spring boot, web, jpa, jwt, mysql, h2-database
 
 ## 🛠️ Tool
-- git, intellij, aws-ec2, aws-s3, amazon-rds
+- git, intellij, aws-ec2, aws-s3, amazon-rds, swagger-ui, gradle
  
 ## 🤼‍♀️ 역할 및 담당
 - 김영석: 회원 관리, 장바구니 관리, 예약 관리, aws배포, ci/cd
