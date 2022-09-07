@@ -6,7 +6,7 @@
 2022.08.23 ~ 2022.09.06
 
 ## ⚡ Skills
-- spring boot, web, jpa, jwt, mysql, h2-database
+- java, spring boot, web, jpa, jwt, mysql, h2-database
 
 ## 🛠️ Tool
 - git, intellij, aws-ec2, aws-s3, amazon-rds, swagger-ui, gradle
