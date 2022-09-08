@@ -2,6 +2,7 @@ package com.ujutechnology.api8.filter;
 
 import com.ujutechnology.api8.security.MemberAuth;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -15,11 +16,13 @@ import java.io.IOException;
  * @since 2022-09-01
  */
 @Slf4j
-@WebFilter(urlPatterns = {"/api/memeber/*","/api/credit/*","/api/cart/*","/api/carts/*", "/api/reservation/*", "/api/reservations/*"})
+@WebFilter(urlPatterns = {"/api/member/*","/api/credit/*","/api/cart/*","/api/carts/*", "/api/reservation/*", "/api/reservations/*"})
+@Order(2)
 public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info("auth");
         HttpSession session = ((HttpServletRequest)request).getSession();
         MemberAuth auth = (MemberAuth)session.getAttribute("auth");
         if(auth != null){
