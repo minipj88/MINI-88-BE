@@ -1,6 +1,5 @@
 # 금융상품 추천 서비스 개발
-- FE 배포: http://
-- BE 배포: http://api8.ujutechnology.com:8080/swagger-ui/
+- 배포: http://api8.ujutechnology.com:8080/swagger-ui/
 
 ## 📅 기간
 2022.08.23 ~ 2022.09.06
