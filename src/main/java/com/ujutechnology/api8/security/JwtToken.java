@@ -13,16 +13,16 @@ import java.util.Date;
 
 public class JwtToken {
     private final static Algorithm AL = Algorithm.HMAC256("backend");
-    private final static int exp = 60 * 60 * 24 * 7;
+    private final static long exp = 1000L * 60 * 60 * 24 * 7;
     public static String Encode(String email) {
         return JWT.create()
-                .withClaim("email", email)
+                .withSubject(email)
                 .withExpiresAt(new Date(System.currentTimeMillis() + exp))
                 .sign(AL);
     }
 
     public static String Decode(String token) {
         DecodedJWT verify = JWT.require(AL).build().verify(token);
-        return verify.getClaims().get("email").toString();
+        return verify.getSubject();
     }
 }
