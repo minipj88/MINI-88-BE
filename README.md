@@ -1,5 +1,6 @@
 # 금융상품 추천 서비스 개발
 - 배포: http://api8.ujutechnology.com:8080/swagger-ui/
+- 이슈테이블: https://github.com/orgs/ujutechnology/projects/6/views/2
 
 ## 📅 기간
 2022.08.23 ~ 2022.09.06
